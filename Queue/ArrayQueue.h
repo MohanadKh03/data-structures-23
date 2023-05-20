@@ -9,13 +9,13 @@ class Queue
 	int count, size;
 	int front, back;
 public:
-	QueueArr();
+	Queue();
 	int getSize();
 	void Enqueue(T);
 	void Dequeue();
 	T Front();
-  T Back();
+    T Back();
 	bool isEmpty();
 	bool isFull();
-	~QueueArr();
+	~Queue();
 };
