@@ -10,7 +10,7 @@ Queue<T>::Queue()
 }
 
 template <class T>
-int Queue<T>::length()
+int Queue<T>::getSize()
 {
 	return count;
 }
@@ -18,7 +18,7 @@ int Queue<T>::length()
 template <class T>
 void Queue<T>::Enqueue(T val)
 {
-	assert(!full());
+	assert(!isFull());
 	if(count==0)
 		front=0;
     //circular queue so you have to return back to the mod of the size IF it was dequed
@@ -37,7 +37,7 @@ void Queue<T>::Enqueue(T val)
 template <class T>
 void Queue<T>::Dequeue()
 {
-	assert(!empty());
+	assert(!isEmpty());
     //circular queue so you have to return back to the mod of the size IF it was dequed
     //FIXED SIZE QUEUE
     //1 2 3 4 5
@@ -56,14 +56,14 @@ void Queue<T>::Dequeue()
 template <class T>
 T Queue<T>::Front()
 {
-	assert(!empty());
+	assert(!isEmpty());
   	return arr[front];
 }
 
 template <class T>
 T Queue<T>::Back()
 {
-	assert(!empty());
+	assert(!isEmpty());
   	return arr[back];
 }
 
