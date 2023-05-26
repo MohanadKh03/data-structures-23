@@ -67,6 +67,79 @@ Node<T>* BST<T>::findMin(Node<T>* root){
     return temp;
 }
 
+
+template <class T>
+void BST<T>::Remove(T val)
+{
+	assert(Contains(val));
+
+	Node<T>* n = Find(val);
+
+	if ((n->left == NULL) && (n->right == NULL)) //deleting a leaf node
+	{
+		if (n == root)
+		{
+			root = NULL;
+		}
+		else
+		{
+			Node<T>* parent = findParent(val);
+			if (val < parent->val)
+				parent->left = NULL;
+			else
+				parent->right = NULL;
+		}
+		delete n;
+	}
+	else if ((n->left == NULL) && (n->right != NULL))
+	{
+		Node<T>* parent = findParent(val);
+		if (n == root)
+		{
+			root = n->right;
+		}
+		else
+		{
+			if (val < parent->val)
+				parent->left = n->right;
+			else
+				parent->right = n->right;
+		}
+		delete n;
+	}
+	else if ((n->left != NULL) && (n->right == NULL))
+	{
+		Node<T>* parent = findParent(val);
+		if (n == root)
+			root = n->left;
+		else
+		{
+			if (val < parent->val)
+				parent->left = n->left;
+			else
+				parent->right = n->left;
+		}
+		delete n;
+	}
+	else
+	{
+		Node<T>* minNode = findMin(n->right);
+		Node<T>* parent = findParent(minNode->val);
+
+		n->val = minNode->val;
+
+		if (parent == n)
+			parent->right = minNode->right;
+		else
+			parent->left = minNode->right;
+
+		delete minNode;
+	}
+}
+
+//in Remove function , We MUST change the parent too
+
+/*
 template<class T>
 void BST<T>::Remove(T val){
     Node<T>* nodeFound = Find(val);
@@ -75,7 +148,7 @@ void BST<T>::Remove(T val){
     //two children
     //Get the minimum node in the GREATER SIDE(right side)
     //then remove that minimum node(which will be a leaf node)
-    //and get the value of the minRightNode replace it with the node to be deleted
+    //and get the val of the minRightNode replace it with the node to be deleted
     if(nodeFound->left && nodeFound->right){
         Node<T>* MinR = findMin(nodeFound->right);
         T temp = MinR->val;
@@ -86,10 +159,12 @@ void BST<T>::Remove(T val){
         //leaf node
         //If it's a leaf node then just delete it
         if(!nodeFound->left && !nodeFound->right){
+            cout << nodeFound << endl;
             delete nodeFound;
             nodeFound = NULL;
+            cout << "here\n";
         }
-        //If the toBeDeleted node has one child .. replace the node's value with the child(left/right) 
+        //If the toBeDeleted node has one child .. replace the node's val with the child(left/right) 
         //and then delete the child which should be a leaf node 
         //left
         else if(nodeFound->left){
@@ -104,6 +179,34 @@ void BST<T>::Remove(T val){
             nodeFound->right = NULL;
         }
     }
+}
+*/
+
+template <class T>
+Node<T>* BST<T>::findParent(T val)
+{
+	Node<T>* b =  NULL;
+	Node<T>* a = root;
+
+	while (a != NULL)
+	{
+		if (a->val == val)
+		{
+			break;
+		}
+
+		b = a;
+		if (a->val > val)
+		{
+			a = a->left;
+		}
+		else
+		{
+			a = a->right;
+		}
+	}
+
+	return b;
 }
 
 template<class T>
