@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include <cassert>
 using namespace std;
 
 template<class T>
@@ -23,6 +24,7 @@ class BST
 {
     Node<T>* root;
     Node<T>* Find(T val);
+    Node<T>* findParent(T val);
 
     void InOrder(Node<T>* root);
     void PreOrder(Node<T>* root);
