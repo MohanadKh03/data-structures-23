@@ -15,7 +15,7 @@
 ## 6.O(n) 
  ### IF The head is constant at the beginning and we are pushing every time at the back WITHOUT having a back pointer
 ---
-## 7.False
+## 7.True .. Not Allowed
 ---
 ## 8.False
 ---
